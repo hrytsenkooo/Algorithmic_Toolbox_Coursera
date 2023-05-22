@@ -1,31 +1,20 @@
-# python3
+from itertools import permutations
 
-""" Task: You are given a set of points on a line and a set of segments on a line. The goal is to compute, for each point, the number of segments that contain this point """
 
-# Inputs
-master_list = list()
-s, p = [int(i) for i in input().split()]
+def max_dot_product(first_sequence, second_sequence):
+    first_sequence.sort()
+    second_sequence.sort()
+    product = 0
 
-for i in range(s):
-    a, b = [int(i) for i in input().split()]
-    master_list.append((a,'l'))
-    master_list.append((b,'r'))
+    for i in range(len(first_sequence)):
+        product += first_sequence[i] * second_sequence[i]
 
-points = input().split()
-for i in points:
-    master_list.append((int(i),'p'))
+    return product
 
-master_list.sort()
 
-segment_count = 0
-point_segment_map = dict()
-for i in master_list:
-    if i[1] == 'l': segment_count += 1
-    elif i[1] == 'r': segment_count -= 1
-    else:
-        point_segment_map[i[0]] = segment_count
-
-temp = ''
-for i in points:
-    temp += str(point_segment_map[int(i)]) + ' '
-print(temp[:-1])
+if __name__ == '__main__':
+    n = int(input())
+    prices = [int(i) for i in input().split()]
+    clicks = [int(i) for i in input().split()]
+    assert len(prices) == len(clicks) == n
+    print(max_dot_product(prices, clicks))
